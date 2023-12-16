@@ -42,12 +42,6 @@ Install any missing libraries
 Run all code chunks
 Output will include data visualizations, summary tables, and Brier score metrics.
 
-## Key Findings
-The prediction model showed better performance (lower Brier score) when applied to new target populations compared to the source population.
-
-Performance was similar for both actual and simulated NHANES target data.
-
-The model performed better for women compared to men across all scenarios.
 
 ## References
-References are included for the modified Brier score method and related prediction model transportation techniques.
+References are included for the modified Brier score method, related prediction model transportation techniques, and data source.
