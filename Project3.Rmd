@@ -118,7 +118,7 @@ CreateTableOne(data = df_2017, strata = c("SEX"))
 
 \begin{abstract}
 
-  Objective: The source data often not a random sample from the target population due to differences in covariate distributions between the two populations. Transportation analysis techniques can overcome this challenge. In this project, our goals are 1) to evaluate the Cardiovascular Disease Risk Prediction model's performance on individual-level NHANES data, originally developed from the Framingham Heart Study, and 2) to assess the model's performance on simulated NHANES data when actual data are unavailable. We will consider three simulation scenarios: observed Framingham correlation, no correlation, and high correlation (0.6).
+  Objective: The source data often can not treated as a random sample from the target population due to differences in covariate distributions between the two populations. Transportation analysis techniques can overcome this challenge. In this project, our goals are 1) to evaluate the Cardiovascular Disease Risk Prediction model's performance on individual-level NHANES data, originally developed from the Framingham Heart Study, and 2) to assess the model's performance on simulated NHANES data when actual data are unavailable. We will consider three simulation scenarios: observed Framingham correlation, no correlation, and high correlation (0.6).
    
    Methods: We employ a logistic regression model, developed from the Framingham dataset, which is trained using the training set. This model is used to predict the risk of cardiovascular disease, with each version of the model stratified by sex. Additionally, we utilize logistic regression to estimate the inverse-odds weighting estimator by calculating $\text{Pr}[S=1 \mid X, D_{\text{test},i}=1]$, and assessed the performance of each sex-stratified risk score prediction model using modified Brier Score when the target population is different from the source population.
 
@@ -210,7 +210,7 @@ corrplot(cor1, type="upper", order="hclust",
 title("Correlation Plot for men")
 corrplot(cor2, type="upper", order="hclust",
          col=brewer.pal(n=8, name="RdYlBu"))
-title("Correlation Plot for men")
+title("Correlation Plot for women")
 par(mfrow=c(1, 1))
 
 ```
