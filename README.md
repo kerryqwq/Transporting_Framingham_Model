@@ -8,21 +8,6 @@ Objective: The source data often not a random sample from the target population 
 
   Results: The Brier scores for the women's risk score prediction model were consistently lower than those for the men's model. Notably, the Brier score for the men's model using simulated NHANES data was higher than that using actual NHANES data. The women's model performs well with no and observed correlation in the simulated data, showing slightly lower Brier scores than the actual NHANES data. The high correlation scenario for the women's model leads to a significantly higher predictive error.
 
-## Contents
-The project report contains the following sections:
-
-Abstract
-
-Introduction - background and goals
-data sources-
-
-Methodology - prediction model details, performance metrics
-
-Analysis - 3 analyses done to evaluate performance in different scenarios
-
-Results - key results presented in tables and plots
-
-Discussion - interpretation of results, limitations
 
 ## Running the Code
 
