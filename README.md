@@ -9,24 +9,3 @@ Objective: The source data often cannot treated as a random sample from the targ
   Results: The Brier scores for the women's risk score prediction model were consistently lower than those for the men's model. Notably, the Brier score for the men's model using simulated NHANES data was higher than that using actual NHANES data. The women's model performs well with no and observed correlation in the simulated data, showing slightly lower Brier scores than the actual NHANES data. The high correlation scenario for the women's model leads to a significantly higher predictive error.
 
 
-## Running the Code
-
-The R Markdown document contains code to:
-
-Prepare and explore the Framingham and NHANES datasets
-Define and fit CVD prediction models.
-
-Evaluate model performance using training/test splits
-Simulate NHANES data based on summary statistics.
-
-Calculate modified Brier scores for model evaluation
-
-## Clone this repo
-Open the R Markdown document
-Install any missing libraries
-Run all code chunks
-Output will include data visualizations, summary tables, and Brier score metrics.
-
-
-## References
-References are included for the modified Brier score method, related prediction model transportation techniques, and data source.
