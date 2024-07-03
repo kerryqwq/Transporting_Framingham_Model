@@ -122,7 +122,7 @@ CreateTableOne(data = df_2017, strata = c("SEX"))
    
    Methods: We employ a logistic regression model, developed from the Framingham dataset, which is trained using the training set. This model is used to predict the risk of cardiovascular disease, with each version of the model stratified by sex. Additionally, we utilize logistic regression to estimate the inverse-odds weighting estimator by calculating $\text{Pr}[S=1 \mid X, D_{\text{test},i}=1]$, and assessed the performance of each sex-stratified risk score prediction model using modified Brier Score when the target population is different from the source population.
 
-  Results: The Brier scores for the women's risk score prediction model were consistently lower than those for the men's model. Notably, the Brier score for the men's model using simulated NHANES data was higher than that using actual NHANES data. The women's model performs well with no and observed correlation in the simulated data, showing slightly lower Brier scores than the actual NHANES data. The high correlation scenario for the women's model leads to a significantly higher predictive error.
+  Results: The Brier scores for the women's risk score prediction model were consistently lower than those for the men's model. Notably, the Brier score for the men's model using simulated NHANES data was higher than that using actual NHANES data. The women's model performs well with no and observed correlation in the simulated data, showing slightly lower Brier scores than the actual NHANES data.
 
    
 \end{abstract}
@@ -156,7 +156,7 @@ CreateTableOne(data = framingham_df[,-c(6,11)], strata = c("SEX"))
 \centering
 \begin{tabular}{lccc}
 \hline
-& 1 & 2 & p-value \\
+& men & women & p-value \\
 \hline
 n & 1094 & 1445 &  \\
 CVD (mean (SD)) & 0.33 (0.47) & 0.17 (0.37) & $<$0.001 \\
@@ -226,7 +226,7 @@ The original NHANES dataset did not include cardiovascular disease (CVD) outcome
 \caption{Summary Statistics Stratified by SEX}
 \begin{tabular}{lccr}
 \toprule
- & 1 & 2 & p \\ 
+ & men & women & p \\ 
 \midrule
 n & 2105 & 2205 &  \\ 
 SYSBP (mean (SD)) & 126.44 (16.83) & 123.70 (20.36) & <0.001 \\ 
@@ -273,7 +273,7 @@ The prediction model presented below is a logistic regression model designed to 
 
 The outcome variable of interest is a binary indicator indicating whether cardiovascular disease occurred (CVD=1) or did not occur (CVD=0) during the follow-up period, and the logit function is used to denote the logistic transformation, which is the natural log of the odds of the event (CVD = 1 in this case). 
 
-The model includes several continuous variables: High-Density Lipoprote in Cholesterol (HDLC) in mg/dL, Serum Total Cholesterol (TOTCHOL) measured in mg/dL, and age at exam (AGE) in years. Additionally, the model accounts for the use of anti-hypertensive medication (BPMEDS), distinguishing between those who currently use these medications and those who do not. Systolic Blood Pressure (SYSBP) taken as the mean of the last two of three measurements in mmHg. SYSBP is further bifurcated into two variables: SYSBP_UT and SYSBP_T. SYSBP_UT represents the systolic blood pressure for individuals not currently using anti-hypertensive medication, while SYSBP_T represents the systolic blood pressure for individuals who are on such medication. These variables undergo logarithmic transformation to approximate normality, addressing skewness in the data.
+The model includes several continuous variables: High-Density Lipoprote in Cholesterol (HDLC) in mg/dL, Serum Total Cholesterol (TOTCHOL) measured in mg/dL, and age at exam (AGE) in years. Systolic Blood Pressure (SYSBP) taken as the mean of the last two of three measurements in mmHg. SYSBP is further bifurcated into two variables: SYSBP_UT and SYSBP_T. SYSBP_UT represents the systolic blood pressure for individuals not currently using anti-hypertensive medication, while SYSBP_T represents the systolic blood pressure for individuals who are on such medication. These variables undergo logarithmic transformation to approximate normality, addressing skewness in the data.
 
 There are also two categorical variables: Diabetes (DIABETES), where 0 indicates non-diabetic and 1 indicates diabetic based on the criteria of the first exam treated or a casual glucose level of 200 mg/dL or more; and current cigarette smoking status (CURSMOKE), with 0 representing non-smokers and 1 representing current smokers.
 
@@ -337,7 +337,7 @@ mod_train_women <- glm(CVD~log(HDLC)+log(TOTCHOL)+log(AGE)+log(SYSBP_UT+1)+
 predicted_men <- predict(mod_train_men, test_men, type = "response")
 predicted_women <- predict(mod_train_women, test_women, type = "response")
 ```
-`
+
 
 
 ```{r, echo=FALSE}
@@ -350,7 +350,7 @@ framingham_bs_women <-BrierScore(test_women, predicted_women)
 
 The second goal of this project is to evaluate the performance of the risk score model in the NHANES study, which was developed using data from the Framingham Heart Study.
 
-Initially, we created a composite dataset by combining the Framingham and NHANES datasets. It's important to note that the Framingham data includes both outcome and covariate information, whereas the NHANES dataset contains only covariate data. We then stratified the composite dataset into two groups: men and women. For each group, we first stratified the composite dataset into two groups: men and women
+ It's important to note that the Framingham data includes both outcome and covariate information, whereas the NHANES dataset contains only covariate data. 
 
 Initially, we stratified the Framingham dataset into two groups: men and women. For each group, we
 partitioned the data into training and testing sets by randomly selecting 70% of the data for training and the remaining 30% for testing. We then created a composite test dataset by combining the Framingham test set and NHANES datasets for each set. The training data was used to fit the prediction model as previously described, and the testing data was used for performance evaluation. Since the NHANES data is not a random sample from the Framingham data, and these two populations can exhibit very different data distributions, we employed the modified version of the Mean Squared Error (MSE) as previously described. This method evaluates the performance of the risk score prediction model developed from the Framingham data when applied to the NHANES study. The inverse odds weighting estimator is estimated using logistic regression to determine $\text{Pr}[S=1 \mid X, D_{\text{test},i}=1]$ in the test set. Eventually, we calculate two Brier scores to evaluate the risk score prediction model, stratified by sex.  
@@ -960,7 +960,7 @@ kable(
 
 In Analyses I and II, we used a modified version of the Brier score. This adjustment was necessary because both the actual NHANES and the simulated NHANES data are not random samples from the Framingham data, and these populations can exhibit significantly different data distributions.
 
-Across all analyses, it was observed that the Brier scores for the women's risk score prediction model were consistently lower than those for the men's model. Notably, the Brier score for the men's model using simulated NHANES data was higher than that using actual NHANES data, implying that actual data more accurately predicts cardiovascular disease risk than simulated data based solely on summary statistics. Interestingly, the high correlation scenario for the men's model produces a Brier score similar to the actual data. In contrast, the women's model performs well with no and observed correlation in the simulated data, showing slightly lower Brier scores than the actual NHANES data. The high correlation scenario for the women's model leads to a significantly higher predictive error. These results suggest that the model's transferability to new populations varies with the underlying correlation structure in the data.
+Across all analyses, it was observed that the Brier scores for the women's risk score prediction model were consistently lower than those for the men's model. Notably, the Brier score for the men's model using simulated NHANES data was higher than that using actual NHANES data, implying that actual data more accurately predicts cardiovascular disease risk than simulated data based solely on summary statistics. Interestingly, the high correlation scenario for the men's model produces a Brier score similar to the actual data. In contrast, the women's model performs well with no and observed correlation in the simulated data, showing slightly lower Brier scores than the actual NHANES data. These results suggest that the model's transferability to new populations varies with the underlying correlation structure in the data.
 
 \section{Conclusion}
 
